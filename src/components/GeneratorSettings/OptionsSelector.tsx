@@ -1,24 +1,18 @@
 import React from "react";
+import { useAppSelector, useAppDispatch } from "../../reducers/hooks";
+import { toggleCaps, toggleNumbers } from "../../reducers/settingsReducer";
 
-interface Props {
-  useCaps: boolean;
-  setUseCaps: React.Dispatch<React.SetStateAction<boolean>>;
-  useNumbers: boolean;
-  setUseNumbers: React.Dispatch<React.SetStateAction<boolean>>;
-}
+const OptionsSelector: React.FC = () => {
+  const useCaps = useAppSelector(state => state.settings.useCaps);
+  const useNumbers = useAppSelector(state => state.settings.useNumbers);
+  const dispatch = useAppDispatch();
 
-const OptionsSelector: React.FC<Props> = ({
-  useCaps,
-  setUseCaps,
-  useNumbers,
-  setUseNumbers
-}) => {
   const handleCapsChange = () => {
-    setUseCaps(prevUseCaps => !prevUseCaps);
+    dispatch(toggleCaps());
   };
 
-	const handleNumbersChange = () => {
-    setUseNumbers(prevUseNumbers => !prevUseNumbers);
+  const handleNumbersChange = () => {
+    dispatch(toggleNumbers());
   };
 
   return (

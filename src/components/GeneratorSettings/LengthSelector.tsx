@@ -1,24 +1,19 @@
 import React from "react";
+import { useAppSelector, useAppDispatch } from "../../reducers/hooks";
+import { pwMinLength, pwMaxLength } from "../../utils/strings";
+import { setLength } from "../../reducers/passwordReducer";
 
-interface Props {
-  pwLength: number;
-  setPwLength: React.Dispatch<React.SetStateAction<number>>;
-  minValue: number;
-  maxValue: number;
-}
+const LengthSelector: React.FC = () => {
+  const pwLength = useAppSelector(state => state.password.pwLength);
+  const dispatch = useAppDispatch();
 
-const LengthSelector: React.FC<Props> = ({
-  pwLength,
-  setPwLength,
-  minValue,
-  maxValue
-}) => {
   const handleLengthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setPwLength(parseInt(event.target.value, 10));
+    dispatch(setLength(parseInt(event.target.value, 10)));
+    console.log(pwLength);
   };
 
   const options = [];
-  for (let i = minValue; i <= maxValue; i++) {
+  for (let i = pwMinLength; i <= pwMaxLength; i++) {
     options.push(
       <option key={i} value={i}>
         {i}

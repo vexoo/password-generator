@@ -1,22 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useAppSelector, useAppDispatch } from "../../reducers/hooks";
 import Button from "../Button";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import {
-  lowercaseLetters,
-  uppercaseLetters,
-  numbers,
-  pwMinLength,
-  pwMaxLength
-} from "../../utils/strings";
+import { lowercaseLetters, uppercaseLetters, numbers } from "../../utils/strings";
 import LengthSelector from "./LengthSelector";
 import OptionsSelector from "./OptionsSelector";
+import { setPassword } from "../../reducers/passwordReducer";
 
 const GeneratorSettings: React.FC = () => {
-  const [password, setPassword] = useState<string>("");
-  const [pwLength, setPwLength] = useState<number>(pwMinLength);
-  const [useCaps, setUseCaps] = useState<boolean>(false);
-  const [useNumbers, setUseNumbers] = useState<boolean>(false);
+  const password = useAppSelector(state => state.password.password);
+  const pwLength = useAppSelector(state => state.password.pwLength);
+
+  const useCaps = useAppSelector(state => state.settings.useCaps);
+  const useNumbers = useAppSelector(state => state.settings.useNumbers);
+
+  const dispatch = useAppDispatch();
 
   const handlePasswordGeneration = () => {
     let availableChars = lowercaseLetters;
@@ -25,7 +22,7 @@ const GeneratorSettings: React.FC = () => {
     if (useNumbers) availableChars += numbers;
 
     const generatedPassword = generatePassword(availableChars);
-    setPassword(generatedPassword);
+    dispatch(setPassword(generatedPassword));
   };
 
   const generatePassword = (availableChars: string) => {
@@ -41,18 +38,8 @@ const GeneratorSettings: React.FC = () => {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <LengthSelector
-        pwLength={pwLength}
-        setPwLength={setPwLength}
-        minValue={pwMinLength}
-        maxValue={pwMaxLength}
-      />
-      <OptionsSelector
-        useCaps={useCaps}
-        setUseCaps={setUseCaps}
-        useNumbers={useNumbers}
-        setUseNumbers={setUseNumbers}
-      />
+      <LengthSelector />
+      <OptionsSelector />
       <Button
         text="generate"
         onClick={handlePasswordGeneration}
