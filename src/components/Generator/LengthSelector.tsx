@@ -9,7 +9,6 @@ const LengthSelector: React.FC = () => {
 
   const handleLengthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(setLength(parseInt(event.target.value, 10)));
-    console.log(pwLength);
   };
 
   const options = [];

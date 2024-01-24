@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import Header from "./components/Header";
-import GeneratorSettings from "./components/GeneratorSettings";
+import Generator from "./components/Generator";
 
 function App() {
   useEffect(() => {
@@ -11,7 +11,7 @@ function App() {
   return (
     <>
       <Header />
-			<GeneratorSettings />
+			<Generator />
     </>
   );
 }

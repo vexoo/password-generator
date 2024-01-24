@@ -1,10 +1,10 @@
-import React from "react";
 import { useAppSelector, useAppDispatch } from "../../reducers/hooks";
 import Button from "../Button";
 import { lowercaseLetters, uppercaseLetters, numbers } from "../../utils/strings";
 import LengthSelector from "./LengthSelector";
 import OptionsSelector from "./OptionsSelector";
 import { setPassword } from "../../reducers/passwordReducer";
+import GeneratedPassword from "./GeneratedPassword";
 
 const GeneratorSettings: React.FC = () => {
   const password = useAppSelector(state => state.password.password);
@@ -37,7 +37,7 @@ const GeneratorSettings: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center mt-10">
       <LengthSelector />
       <OptionsSelector />
       <Button
@@ -45,7 +45,7 @@ const GeneratorSettings: React.FC = () => {
         onClick={handlePasswordGeneration}
         className="bg-green-500 dark:text-white mt-3"
       />
-      <div className="bg-sky-900 mt-5 text-white">{password}</div>
+      <GeneratedPassword />
     </div>
   );
 };

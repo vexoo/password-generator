@@ -3,12 +3,12 @@ import type { RootState } from "../reducers/store";
 import { pwMinLength } from "../utils/strings";
 
 interface PasswordState {
-  password: string | null;
+  password: string;
   pwLength: number;
 }
 
 const initialState: PasswordState = {
-  password: null,
+  password: "",
   pwLength: pwMinLength
 };
 
